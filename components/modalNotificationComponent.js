@@ -1,11 +1,6 @@
 import styles from "../styles/modalNotificationComponent.module.css";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
 
 export default function ModalNotificationComponent(props) {
-  const router = useRouter();
-  const [action, setAction] = useState(0);
-
   const notifications = [
     {
       ico: (
@@ -48,9 +43,6 @@ export default function ModalNotificationComponent(props) {
       type: "success",
     },
   ];
-  useEffect(() => {
-    setAction(props.action);
-  }, []);
 
   function showNotification() {
     props.showNotification();
@@ -58,12 +50,14 @@ export default function ModalNotificationComponent(props) {
 
   return (
     <>
-      <div  className={styles.modal}>
+      <div className={styles.modal}>
         <div className={styles.modalContent}>
           <span onClick={() => showNotification()} className={styles.close}>
             &times;
           </span>
-          <p className={styles.ico}>{notifications[props.typeNotification].ico}</p>
+          <p className={styles.ico}>
+            {notifications[props.typeNotification].ico}
+          </p>
 
           <p>{props.messageNotification}</p>
         </div>

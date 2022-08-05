@@ -148,7 +148,7 @@ export default function ActionButtonComponent(props) {
 
   function disconnectWallet() {
     deactivate();
-      props.connectionStatus(true, error, account);
+    props.connectionStatus(true, error, account);
   }
 
   function validateAddress() {
@@ -159,6 +159,8 @@ export default function ActionButtonComponent(props) {
       setAction(3);
     }
   }
+
+
   useEffect(() => {
     setAction(props.action);
   }, [props.action]);
