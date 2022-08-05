@@ -1,0 +1,28 @@
+.grid {
+	margin-top: 5%;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 100px;
+  }
+  .item {
+	background-color:#ffff;
+	border-radius:10px;
+	border:1px solid #ffff;
+	display:inline-block;
+	cursor:pointer;
+	padding:16px 31px;
+	text-decoration:none;
+}
+.item:hover {
+	background-color:#e67654;
+	border:1px solid #e67654;
+}
+
+@media only screen and (max-width: 600px) {
+	.grid {
+		margin-top: 5%;
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		grid-gap: 10px;
+	}
+  }

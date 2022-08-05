@@ -1,0 +1,37 @@
+.actionButton {
+	background-color:#da3526;
+	border-radius:10px;
+	border:1px solid #da3526;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	padding:16px 31px;
+	text-decoration:none;
+}
+.actionButton:hover {
+	background-color:#e67654;
+	border:1px solid #e67654;
+}
+
+.actionContentMessage {
+	background-color:#ffffff;
+	border-radius:10px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:none;
+	color:#34495e;
+	font-family:Arial;
+	padding: 0px 15px 0px 15px;
+	text-decoration:none;
+	margin-top: -15px;
+}
+.actionMessage {
+	display:inline-block;
+	cursor:none;
+	color:#34495e;
+	font-family:Arial;
+	font-size:20px;
+	text-decoration:none;	
+}
