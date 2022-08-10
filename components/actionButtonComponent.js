@@ -3,13 +3,32 @@ import styles from "../styles/actionButtonComponent.module.css";
 import logo from "../images/momentumLogo.png";
 import { useState, useEffect, useCallback } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { connector } from "../config/web3";
+import { InjectedConnector } from "@web3-react/injected-connector";
+import Web3 from "web3";
+
 
 export default function ActionButtonComponent(props) {
+  const injected = new InjectedConnector({
+    supportedChainIds: [1, 5]
+  });
   const validAddress = require("../config/validAddress/address.json");
+    const CONTRACT_ADDRESS = "0x4b548223a7Dd001806d5C7d87CbF653De2B3d792";
+    const ABI = require("../abis/abi.json");
 
-  const { activate, active, deactivate, account, error } = useWeb3React();
+  const {
+    chainId,
+    account,
+    activate,
+    deactivate,
+    setError,
+    active,
+    error,
+    library,
+    connector
+  } = useWeb3React();
   const [action, setAction] = useState(0);
+  const [user, setUser] = useState({});
+  const [web3, setWeb3] = useState({});
 
   const actions = [
     {
@@ -58,7 +77,35 @@ export default function ActionButtonComponent(props) {
       type: "message",
     },
     {
-      function: () => claim(),
+      function: async () => {
+        const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
+        try {
+          const gasEstimate = await contract.methods.claim(user.proof).estimateGas({
+            from: account
+          });
+          contract.methods.claim(user.proof).send({
+            from: account,
+            gasLimit: gasEstimate + 15000
+          }).once('sending', function(payload){
+              // submitting tx
+          })
+          .once('transactionHash', function(hash){
+              // el hash que esta pending
+          })
+          .on('confirmation', function(confNumber, receipt, latestBlockHash){
+            // transaction success
+          })
+          .on('error', function(error){
+            // buuuuu
+          })
+          .then(function(receipt){
+              // will be fired once the receipt is mined
+          });
+        } catch (er) {
+          console.log(er);
+          setAction(5);
+        }
+      },
       text: "Claim",
       type: "button",
     },
@@ -139,9 +186,10 @@ export default function ActionButtonComponent(props) {
     },
   ];
 
-  function connectWallet() {
-    activate(connector);
+  async function connectWallet() {
+    activate(injected);
     if (active || error) {
+      setWeb3(new Web3(await injected.getProvider()));
       props.connectionStatus(true, error, account);
     }
   }
@@ -154,6 +202,7 @@ export default function ActionButtonComponent(props) {
   function validateAddress() {
     const findAddress = validAddress.find((item) => item.address === account);
     if (findAddress != undefined) {
+      setUser(findAddress);
       setAction(4);
     } else {
       setAction(3);

@@ -1,0 +1,40 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32[]",
+                "name": "_merkleProof",
+                "type": "bytes32[]"
+            }
+        ],
+        "name": "claim",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "CallerNotAuthorized",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "CallerNotEoA",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "EmptyString",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "QueryNonExistentToken",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "TransfersPaused",
+        "type": "error"
+    }
+]

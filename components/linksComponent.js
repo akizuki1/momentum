@@ -7,7 +7,7 @@ export default function LinksComponent() {
   return (
     <div className={styles.grid}>
       <div className={styles.item}>
-        <Link href="https://www.google.com">
+        <Link href="https://discord.gg/momentumofficial">
           <a target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ export default function LinksComponent() {
         </Link>
       </div>
       <div className={styles.item}>
-        <Link href="https://www.google.com">
+        <Link href="https://opensea.io/collections/momentumofficial">
           <a target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ export default function LinksComponent() {
         </Link>
       </div>
       <div className={styles.item}>
-        <Link href="https://www.google.com">
+        <Link href="https://etherscan.io/address/">
           <a target="_blank">
             <Image src={etherscan} alt="etherscan" width={60} height={60} />
           </a>

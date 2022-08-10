@@ -25,7 +25,7 @@ export default function Home() {
         setAccount("disconnect")
       }
       setAccount(account)
-    
+
     } else {
       setMessageNotification("Connection failure, error: " + error);
       setTypeNotification(0);
