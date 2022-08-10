@@ -12,8 +12,8 @@ export default function ActionButtonComponent(props) {
     supportedChainIds: [1, 5]
   });
   const validAddress = require("../config/validAddress/address.json");
-    const CONTRACT_ADDRESS = "0x4b548223a7Dd001806d5C7d87CbF653De2B3d792";
-    const ABI = require("../abis/abi.json");
+  const CONTRACT_ADDRESS = "0x4b548223a7Dd001806d5C7d87CbF653De2B3d792";
+  const ABI = require("../abis/abi.json");
 
   const {
     chainId,
@@ -78,6 +78,7 @@ export default function ActionButtonComponent(props) {
     },
     {
       function: async () => {
+
         const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
         try {
           const gasEstimate = await contract.methods.claim(user.proof).estimateGas({
@@ -86,21 +87,21 @@ export default function ActionButtonComponent(props) {
           contract.methods.claim(user.proof).send({
             from: account,
             gasLimit: gasEstimate + 15000
-          }).once('sending', function(payload){
-              // submitting tx
+          }).once('sending', function (payload) {
+            props.setNotification("Sending", 2)
           })
-          .once('transactionHash', function(hash){
-              // el hash que esta pending
-          })
-          .on('confirmation', function(confNumber, receipt, latestBlockHash){
-            // transaction success
-          })
-          .on('error', function(error){
-            // buuuuu
-          })
-          .then(function(receipt){
-              // will be fired once the receipt is mined
-          });
+            .once('transactionHash', function (hash) {
+              props.setNotification("Pending " + hash, 2)
+            })
+            .on('confirmation', function (confNumber, receipt, latestBlockHash) {
+              props.setNotification("Success ", 1)
+            })
+            .on('error', function (error) {
+              props.setNotification("Error: " + error, 0)
+            })
+            .then(function (receipt) {
+              props.setNotification("Will be fired once the receipt is mine", 3)
+            });
         } catch (er) {
           console.log(er);
           setAction(5);

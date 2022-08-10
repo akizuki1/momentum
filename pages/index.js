@@ -33,6 +33,13 @@ export default function Home() {
     }
   }
 
+  function setNotification(message, type){
+    setMessageNotification(message);
+      setTypeNotification(type);
+      setOpenNotification(true);
+
+  }
+
   function showNotification() {
     setOpenNotification(!openNotification);
   }
@@ -58,6 +65,7 @@ export default function Home() {
         <main className={styles.main}>
           <ActionButtonComponent
             connectionStatus={connectionStatus}
+            setNotification={setNotification}
             action={action}
           />
           {connected === false ? (
