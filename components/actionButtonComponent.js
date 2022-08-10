@@ -30,6 +30,12 @@ export default function ActionButtonComponent(props) {
   const [user, setUser] = useState({});
   const [web3, setWeb3] = useState({});
 
+  useEffect(() => {
+    if(account !== undefined && account !== null) {
+      validateAddress();
+    }
+  },[account, validateAddress]);
+
   const actions = [
     {
       function: () => connectWallet(),
@@ -88,19 +94,16 @@ export default function ActionButtonComponent(props) {
             from: account,
             gasLimit: gasEstimate + 15000
           }).once('sending', function (payload) {
-            props.setNotification("Sending", 2)
+            props.setNotification("Please confirm transaction", 2)
           })
             .once('transactionHash', function (hash) {
-              props.setNotification("Pending " + hash, 2)
+              props.setNotification("Transaction pending: https://etherscan.io/tx/" + hash, 2)
             })
             .on('confirmation', function (confNumber, receipt, latestBlockHash) {
-              props.setNotification("Success ", 1)
+              props.setNotification("Success! ", 1)
             })
             .on('error', function (error) {
               props.setNotification("Error: " + error, 0)
-            })
-            .then(function (receipt) {
-              props.setNotification("Will be fired once the receipt is mine", 3)
             });
         } catch (er) {
           console.log(er);
