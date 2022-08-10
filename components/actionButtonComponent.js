@@ -96,7 +96,7 @@ export default function ActionButtonComponent(props) {
             props.setNotification("Please confirm transaction", 2)
           })
             .once('transactionHash', function (hash) {
-              props.setNotification("Transaction pending: https://etherscan.io/tx/" + hash, 2)
+              props.setNotification('<p>Transaction pending: <a href="https://etherscan.io/tx/'+hash+'" target="_blank">CONFIRM</a></p><br>'+hash, 2)
             })
             .on('confirmation', function (confNumber, receipt, latestBlockHash) {
               props.setNotification("Success! ", 1)

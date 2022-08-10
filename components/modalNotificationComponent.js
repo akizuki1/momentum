@@ -1,4 +1,5 @@
 import styles from "../styles/modalNotificationComponent.module.css";
+const parse = require('html-react-parser');
 
 export default function ModalNotificationComponent(props) {
   const notifications = [
@@ -71,7 +72,7 @@ export default function ModalNotificationComponent(props) {
             {notifications[props.typeNotification].ico}
           </p>
 
-          <p>{props.messageNotification}</p>
+          <p>{parse(props.messageNotification)}</p>
         </div>
       </div>
     </>
