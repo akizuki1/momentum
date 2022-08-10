@@ -78,7 +78,6 @@ export default function ActionButtonComponent(props) {
     },
     {
       function: async () => {
-
         const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
         try {
           const gasEstimate = await contract.methods.claim(user.proof).estimateGas({
